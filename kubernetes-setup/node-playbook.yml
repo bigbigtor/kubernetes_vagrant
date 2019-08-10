@@ -32,8 +32,8 @@
       update_cache: yes
     vars:
       packages:
-      - docker-ce 
-      - docker-ce-cli 
+      - docker-ce=5:18.09.8~3-0~ubuntu-bionic
+      - docker-ce-cli=5:18.09.8~3-0~ubuntu-bionic
       - containerd.io
     notify:
       - docker status
@@ -63,7 +63,7 @@
 
   - name: Adding apt repository for Kubernetes
     apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-yakkety main
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
       state: present
       filename: kubernetes.list
 
