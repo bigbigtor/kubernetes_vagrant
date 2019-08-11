@@ -53,8 +53,12 @@
       - '{'
       - '  "exec-opts": ["native.cgroupdriver=systemd"]'
       - '}'
-    notify:
-      systemctl_restart_docker
+
+  - name: Restart docker
+    service:
+      name: docker
+      daemon_reload: yes
+      state: restarted
 
   - name: Remove swapfile from /etc/fstab
     mount:
@@ -106,5 +110,3 @@
   handlers:
     - name: docker status
       service: name=docker state=started
-    - name: systemctl_restart_docker
-      shell: systemctl restart docker
