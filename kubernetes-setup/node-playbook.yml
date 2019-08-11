@@ -43,6 +43,19 @@
       name: vagrant
       group: docker
 
+  - name: config docker daemon
+    lineinfile:
+      path: /etc/docker/daemon.json
+      line: "{{ item }}"
+      create: yes
+      state: present
+    with_items:
+      - '{'
+      - '  "exec-opts": ["native.cgroupdriver=systemd"]'
+      - '}'
+    notify:
+      systemctl_restart_docker
+
   - name: Remove swapfile from /etc/fstab
     mount:
       name: "{{ item }}"
@@ -93,3 +106,5 @@
   handlers:
     - name: docker status
       service: name=docker state=started
+    - name: systemctl_restart_docker
+      shell: systemctl restart docker

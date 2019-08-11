@@ -26,7 +26,7 @@
       state: present
 
   - name: Install docker and its dependecies
-    apt: 
+    apt:
       name: "{{ packages }}"
       state: present
       update_cache: yes
@@ -68,14 +68,14 @@
       filename: kubernetes.list
 
   - name: Install Kubernetes binaries
-    apt: 
+    apt:
       name: "{{ packages }}"
       state: present
       update_cache: yes
     vars:
       packages:
-        - kubelet 
-        - kubeadm 
+        - kubelet
+        - kubeadm
         - kubectl
 
   - name: Restart kubelet
